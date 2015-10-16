@@ -6,43 +6,39 @@ public class Ant {
   private Node currNode;
   private Node prevNode;
 
-  private ArrayList<Edge> travelled;
+  private ArrayList<Node> travelled;
 
   public Ant(Node node) {
     currNode = node;
+    prevNode = null;
     travelled = new ArrayList<>();
   }
-
+  
   public void move() {
     Node next = getNextNode();   
-    travelled.add(currNode.getEdge(next));
+    travelled.add(currNode);
     prevNode = currNode;
     currNode = next;
   }
   
-  public Node getNextNode() {
-    List<Edge> edges = currNode.getEdges();  
-
+  private Node getNextNode() {
+    List<Node> nodes = Map.getNeighbours(currNode);
+    
     double total = 0;
-    for (Edge edge : edges) {
-      total += edge.getPheromone();
+    for (Node node : nodes) {
+      total += node.getPheromone();
     }
-
-    Edge next = null;
+    Node next = null;
     double random = Math.random();
-    for (Edge edge: edges) {     
-      double pher = edge.getPheromone();
+    for (Node node: nodes) {     
+      double pher = node.getPheromone();
       if ((pher / total) > random) {
-        next = edge;
+        next = node;
         break;
       } else {
         random -= (pher / total);
       }
     }
-    if (next.getBegin().equals(currNode)) {
-      return next.getEnd();
-    } else {
-      return next.getBegin();
-    }
+    return next;
   }
 }

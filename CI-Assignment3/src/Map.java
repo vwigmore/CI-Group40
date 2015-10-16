@@ -3,33 +3,29 @@ import java.util.List;
 
 public class Map {
 
-  private Node[][] mapNodes;
-  private int height;
-  private int width;
+  private static Node[][] mapNodes;
+  private static int height;
+  private static int width;
   
   public Map(Node[][] nodes, int h, int w) {
     mapNodes = nodes;
     height = h;
     width = w;
-    setEdges();
+  } 
+  
+  public Node[][] getNodes() {
+    return mapNodes;
   }
-   
-  private void setEdges() {
-    for (int i=0; i < width; i++) {
-      for (int j=0; j < height; j++) {
-        Node temp = mapNodes[i][j];
-        ArrayList<Edge> edges = new ArrayList<>();
-        List<Node> neigh = getNeighbours(temp);
-        for (Node n : neigh) {
-          Edge edge = new Edge(temp,n);
-          edges.add(edge);
-        }
-        temp.setEdges(edges);
-      }
-    }
+
+  public static int getHeight() {
+    return height;
+  }
+
+  public int getWidth() {
+    return width;
   }
   
-  private List<Node> getNeighbours(Node node) {
+  public static List<Node> getNeighbours(Node node) {
     List<Node> temp = new ArrayList<>();    
     if (node.getXcoord() > 1) {
       temp.add(mapNodes[node.getXcoord()-1][node.getYcoord()]);
@@ -46,8 +42,4 @@ public class Map {
     return temp;
   }
   
-  
-  public Node[][] getNodes() {
-    return mapNodes;
-  }
 }

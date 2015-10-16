@@ -1,27 +1,30 @@
-import java.util.ArrayList;
+
 
 public class Node {
 
   private boolean value;
   private int xcoord;
   private int ycoord; 
-  private ArrayList<Edge> edges;
-  
-  
+  private int pheromone;
+
   public Node(boolean val, int x, int y) {
     value = val;
     xcoord = x;
     ycoord = y;
-  }
-  
-  
-  public Edge getEdge(Node node) {
-    for (Edge edge : edges) {
-      if (edge.getEnd().equals(node)) {
-        return edge;
-      }
+    if (val) {
+      pheromone = 1;
+    } else {
+      pheromone = 0;
     }
-    return null;
+  } 
+  
+  
+  public int getPheromone() {
+    return pheromone;
+  }
+
+  public void setPheromone(int pheromone) {
+    this.pheromone = pheromone;
   }
   
   public int getXcoord() {
@@ -35,12 +38,5 @@ public class Node {
   public boolean getValue() {
     return value;
   }
-
-  public ArrayList<Edge> getEdges() {
-    return edges;
-  }
-
-  public void setEdges(ArrayList<Edge> edges) {
-    this.edges = edges;
-  }
+  
 }
