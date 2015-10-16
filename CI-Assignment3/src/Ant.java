@@ -15,14 +15,22 @@ public class Ant {
   }
   
   public void move() {
-    Node next = getNextNode();   
-    travelled.add(currNode);
+    Node next = getNextNode();
+    if (!travelled.contains(currNode)) {
+      travelled.add(currNode);
+    }
+    if (!Map.getTotalset().contains(currNode)) {
+      Map.getTotalset().add(currNode);
+    }
     prevNode = currNode;
     currNode = next;
   }
   
   private Node getNextNode() {
     List<Node> nodes = Map.getNeighbours(currNode);
+    if (prevNode != null) {
+      nodes.remove(prevNode);
+    }  
     
     double total = 0;
     for (Node node : nodes) {
@@ -41,4 +49,13 @@ public class Ant {
     }
     return next;
   }
+  
+  public Node getCurrNode() {
+    return currNode;
+  }
+
+  public ArrayList<Node> getTravelled() {
+    return travelled;
+  }
+  
 }

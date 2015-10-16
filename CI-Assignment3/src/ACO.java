@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 
 public class ACO {
 
@@ -5,31 +7,65 @@ public class ACO {
   private static final int loops = 10;
   private static final int standard_pheromone = 100;
   private static final double evaporation = 0.1;
-  
 
-  
-  
-  
+  private static final Node beginnode = new Node(true,0,0);
+  private static final Node endnode = new Node(true,11,5);
+
+
+  private static List<Ant> antlist = new ArrayList<>();
+
 
   public static void main(String[] args) {
+    /**
+     * Optimalisation, removing dead ends
+     */
+    
+    
+    
+    
+    
     for (int i = 0; i < loops; i++) {
-      
+      /**
+       * For every node walked on, deal with the evaporation.
+       */
+      List<Node> total = Map.getTotalset();
+      if (total != null) {
+        for (Node node : total) {
+          node.setPheromone(node.getPheromone()*(1-evaporation));       
+        }
+      }
+      /**
+       * Initialize the ants.
+       */
+      for (int k = 0; k < ants; k++) {
+        Ant ant  = new Ant(beginnode);
+        antlist.add(ant);
+      }
+      /**
+       * Each ant should move until it has reached the end.
+       */
       for (int j = 0; j < ants; j++) {
-        
-        
-        
+        Ant ant = antlist.get(j);
+        while (!ant.getCurrNode().equals(endnode)) {
+          ant.move();
+        }
+      }
+      /**
+       * Update the pheromones on the travelled path for every ant.
+       */
+      for (Ant ant : antlist) {       
+        List<Node> travelled = ant.getTravelled();
+        for (Node node : travelled) {
+          double temp = standard_pheromone / travelled.size();
+          node.setPheromone(node.getPheromone() + temp);
+      }
+      
+     
+
         
         
         
       }
-      
-      
-      
-      
-      
-      
-    }
-    
+    }   
   }
-
 }

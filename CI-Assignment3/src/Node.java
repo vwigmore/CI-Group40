@@ -1,11 +1,10 @@
 
-
 public class Node {
 
   private boolean value;
   private int xcoord;
   private int ycoord; 
-  private int pheromone;
+  private double pheromone;
 
   public Node(boolean val, int x, int y) {
     value = val;
@@ -19,11 +18,11 @@ public class Node {
   } 
   
   
-  public int getPheromone() {
+  public double getPheromone() {
     return pheromone;
   }
 
-  public void setPheromone(int pheromone) {
+  public void setPheromone(double pheromone) {
     this.pheromone = pheromone;
   }
   
