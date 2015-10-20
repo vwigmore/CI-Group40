@@ -44,6 +44,7 @@ public class Ant {
       double pher = node.getPheromone();
       if ((pher / total) > random) {
         next = node;
+        nextDir(next);
         break;
       } else {
         random -= (pher / total);
@@ -52,16 +53,18 @@ public class Ant {
     return next;
   }
   
-//  private void nextDir(Node next) {
-//    Node curr = currNode;
-//    
-//    if 
-//    
-//    
-//    
-//    
-//    
-//  }
+  private void nextDir(Node next) {
+    Node current = currNode;   
+    if (current.getXcoord() > next.getXcoord()) {           // moving left
+      directions.add(new Integer(2));
+    } else if (current.getXcoord() < next.getXcoord()) {    // moving right
+      directions.add(new Integer(0));
+    } else if (current.getYcoord() > next.getYcoord()) {    // moving up
+      directions.add(new Integer(1));
+    } else if (current.getYcoord() < next.getYcoord()) {    // moving down
+      directions.add(new Integer(3));
+    }
+  }
   
   public Node getCurrNode() {
     return currNode;
