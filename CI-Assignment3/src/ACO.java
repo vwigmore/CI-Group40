@@ -12,7 +12,7 @@ public class ACO {
 	private static final Node endnode = new Node(true, 24, 14);
 
 	private static List<Ant> antlist = new ArrayList<>();
-	public static Map map = new Reader("Resources/easymaze.txt").read();
+	public static Map map = new Reader().parseMaze("Resources/easymaze.txt");
 
 	public static void main(String[] args) {
 		/**
