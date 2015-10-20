@@ -81,4 +81,30 @@ public class Ant {
     return directions;
   }
   
+  public String pathToString() {
+	  String res = "START: ";
+	  for (int i : directions) {
+		  if (i == 0) {
+			  res += "East, ";
+		  } else if (i == 1) {
+			  res += "North, ";
+		  } else if (i == 2) {
+			  res += "West , ";
+		  } else if (i == 3) {
+			  res += "South, ";
+		  }
+	  }
+	  res = res.substring(0, res.length() - 2);
+	  res += " :END";
+	  return res;
+  }
+  
+  public String parseDirections() {
+	  String res = "";
+	  for (int i : directions) {
+		  res += i + ";";
+	  }
+	  res = res.substring(0, res.length()-1);
+	  return res;
+  }
 }
