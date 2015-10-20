@@ -32,7 +32,7 @@ public class Ant {
   }
   
   private Node getNextNode() {
-    List<Node> nodes = map.getNeighbours(currNode);
+    List<Node> nodes = new ArrayList<>(map.getNeighbours(currNode));
     if (prevNode != null) {
       nodes.remove(prevNode);
     }  
