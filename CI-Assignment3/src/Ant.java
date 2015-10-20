@@ -8,12 +8,15 @@ public class Ant {
 
   private ArrayList<Node> travelled;
   private ArrayList<Integer> directions;
+  
+  private Map map;
 
   public Ant(Node node) {
     currNode = node;
     prevNode = null;
     travelled = new ArrayList<>();
     directions = new ArrayList<>();
+    map = ACO.map;
   }
   
   public void move() {
@@ -21,15 +24,15 @@ public class Ant {
     if (!travelled.contains(currNode)) {
       travelled.add(currNode);
     }
-    if (!Map.getTotalset().contains(currNode)) {
-      Map.getTotalset().add(currNode);
+    if (!map.getTotalset().contains(currNode)) {
+      map.getTotalset().add(currNode);
     }
     prevNode = currNode;
     currNode = next;
   }
   
   private Node getNextNode() {
-    List<Node> nodes = Map.getNeighbours(currNode);
+    List<Node> nodes = map.getNeighbours(currNode);
     if (prevNode != null) {
       nodes.remove(prevNode);
     }  

@@ -13,13 +13,13 @@ public class ACO {
 
 
   private static List<Ant> antlist = new ArrayList<>();
-
+  public static Map map = new Reader("Resources/easymaze.txt").read();
 
   public static void main(String[] args) {
     /**
      * Optimalisation, removing dead ends
      */
-    Map.removeDeadEnds(endnode);
+    map.removeDeadEnds(endnode);
 
     /**
      * After removing all dead ends, start with the loops.
@@ -28,7 +28,7 @@ public class ACO {
       /**
        * For every node walked on, deal with the evaporation.
        */
-      List<Node> total = Map.getTotalset();
+      List<Node> total = map.getTotalset();
       if (total != null) {
         for (Node node : total) {
           node.setPheromone(node.getPheromone()*(1-evaporation));       
