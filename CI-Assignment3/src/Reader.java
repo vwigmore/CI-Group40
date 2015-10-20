@@ -1,5 +1,8 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -51,6 +54,18 @@ public class Reader {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public void writeMazePath(Ant ant) {
+		try {
+			PrintWriter out = new PrintWriter(new FileWriter(new File("Resources/mazeresult.txt")));
+			out.println(ant.getDirections().size() + ";");
+			out.println(ACO.beginnode.getXcoord() + ", " + ACO.beginnode.getYcoord() + ";");
+			out.println(ant.parseDirections());
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
