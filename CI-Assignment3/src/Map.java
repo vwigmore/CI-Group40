@@ -19,35 +19,30 @@ public class Map {
   public List<Node> getNeighbours(Node node) {
     List<Node> temp = new ArrayList<>();    
     if (node.getXcoord() > 0) {
-      temp.add(mapNodes[node.getXcoord()-1][node.getYcoord()]);
-    }
-    if (node.getXcoord() < width - 1) {
-      temp.add(mapNodes[node.getXcoord()+1][node.getYcoord()]);
-    }
-    if (node.getYcoord() > 0) {
-      temp.add(mapNodes[node.getXcoord()][node.getYcoord()-1]);
-    }
-    if (node.getYcoord() < height - 1) {
-      temp.add(mapNodes[node.getXcoord()][node.getYcoord()+1]);
-    }    
-    return temp;
-  }
-  
-  
-  public void removeDeadEnds(Node deadEnd) {
-    boolean progress = true;
-    while (progress) {
-      progress = false;
-      for ( int i = 0; i < width; i++) {
-        for (int j = 0; j < height; j++) {
-          Node node = mapNodes[i][j];
-          if (node.getValue() == true && !node.equals(deadEnd) && getNeighbours(node).size() < 2) {
-            mapNodes[i][j].setValue(false);
-            progress = true;
-          }
-        }
+      Node neigh = mapNodes[node.getXcoord()-1][node.getYcoord()];
+      if (neigh.getValue()) {
+        temp.add(neigh);
       }
     }
+    if (node.getXcoord() < width - 1) {
+      Node neigh = mapNodes[node.getXcoord()+1][node.getYcoord()];
+      if (neigh.getValue()) {
+        temp.add(neigh);
+      }
+    }
+    if (node.getYcoord() > 0) {
+      Node neigh = mapNodes[node.getXcoord()][node.getYcoord()-1];
+      if (neigh.getValue()) {
+        temp.add(neigh);
+      }
+    }
+    if (node.getYcoord() < height - 1) {
+      Node neigh = mapNodes[node.getXcoord()][node.getYcoord()+1];
+      if (neigh.getValue()) {
+        temp.add(neigh);
+      }
+    }    
+    return temp;
   }
   
   public ArrayList<Node> getTotalset() {

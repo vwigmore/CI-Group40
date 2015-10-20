@@ -8,7 +8,7 @@ public class Ant {
 
   private ArrayList<Node> travelled;
   private ArrayList<Integer> directions;
-  
+
   private Map map;
 
   public Ant(Node node) {
@@ -18,25 +18,23 @@ public class Ant {
     directions = new ArrayList<>();
     map = ACO.map;
   }
-  
+
   public void move() {
     Node next = getNextNode();
-    if (!travelled.contains(currNode)) {
-      travelled.add(currNode);
-    }
+    travelled.add(currNode);
+
     if (!map.getTotalset().contains(currNode)) {
       map.getTotalset().add(currNode);
     }
     prevNode = currNode;
     currNode = next;
   }
-  
+
   private Node getNextNode() {
     List<Node> nodes = new ArrayList<>(map.getNeighbours(currNode));
-    if (prevNode != null) {
+    if (prevNode != null && nodes.size() > 1) {
       nodes.remove(prevNode);
     }  
-    
     double total = 0;
     for (Node node : nodes) {
       total += node.getPheromone();
@@ -55,7 +53,7 @@ public class Ant {
     }
     return next;
   }
-  
+
   private void nextDir(Node next) {
     Node current = currNode;   
     if (current.getXcoord() > next.getXcoord()) {           // moving left
@@ -68,7 +66,7 @@ public class Ant {
       directions.add(new Integer(3));
     }
   }
-  
+
   public Node getCurrNode() {
     return currNode;
   }
@@ -76,35 +74,35 @@ public class Ant {
   public ArrayList<Node> getTravelled() {
     return travelled;
   }
-  
+
   public ArrayList<Integer> getDirections() {
     return directions;
   }
-  
+
   public String pathToString() {
-	  String res = "START: ";
-	  for (int i : directions) {
-		  if (i == 0) {
-			  res += "East, ";
-		  } else if (i == 1) {
-			  res += "North, ";
-		  } else if (i == 2) {
-			  res += "West , ";
-		  } else if (i == 3) {
-			  res += "South, ";
-		  }
-	  }
-	  res = res.substring(0, res.length() - 2);
-	  res += " :END";
-	  return res;
+    String res = "START: ";
+    for (int i : directions) {
+      if (i == 0) {
+        res += "East, ";
+      } else if (i == 1) {
+        res += "North, ";
+      } else if (i == 2) {
+        res += "West , ";
+      } else if (i == 3) {
+        res += "South, ";
+      }
+    }
+    res = res.substring(0, res.length() - 2);
+    res += " :END";
+    return res;
   }
-  
+
   public String parseDirections() {
-	  String res = "";
-	  for (int i : directions) {
-		  res += i + ";";
-	  }
-	  res = res.substring(0, res.length()-1);
-	  return res;
+    String res = "";
+    for (int i : directions) {
+      res += i + ";";
+    }
+    res = res.substring(0, res.length()-1);
+    return res;
   }
 }
