@@ -18,16 +18,16 @@ public class Map {
 
   public List<Node> getNeighbours(Node node) {
     List<Node> temp = new ArrayList<>();    
-    if (node.getXcoord() > 1) {
+    if (node.getXcoord() > 0) {
       temp.add(mapNodes[node.getXcoord()-1][node.getYcoord()]);
     }
-    if (node.getXcoord() < width) {
+    if (node.getXcoord() < width - 1) {
       temp.add(mapNodes[node.getXcoord()+1][node.getYcoord()]);
     }
-    if (node.getYcoord() > 1) {
+    if (node.getYcoord() > 0) {
       temp.add(mapNodes[node.getXcoord()][node.getYcoord()-1]);
     }
-    if (node.getYcoord() < height) {
+    if (node.getYcoord() < height - 1) {
       temp.add(mapNodes[node.getXcoord()][node.getYcoord()+1]);
     }    
     return temp;
