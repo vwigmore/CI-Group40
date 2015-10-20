@@ -19,7 +19,7 @@ public class ACO {
     /**
      * Optimalisation, removing dead ends
      */
-    Map.removeDeadEnds();
+    Map.removeDeadEnds(endnode);
 
     /**
      * After removing all dead ends, start with the loops.

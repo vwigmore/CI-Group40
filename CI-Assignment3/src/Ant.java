@@ -7,11 +7,13 @@ public class Ant {
   private Node prevNode;
 
   private ArrayList<Node> travelled;
+  private ArrayList<Integer> directions;
 
   public Ant(Node node) {
     currNode = node;
     prevNode = null;
     travelled = new ArrayList<>();
+    directions = new ArrayList<>();
   }
   
   public void move() {
@@ -50,12 +52,27 @@ public class Ant {
     return next;
   }
   
+//  private void nextDir(Node next) {
+//    Node curr = currNode;
+//    
+//    if 
+//    
+//    
+//    
+//    
+//    
+//  }
+  
   public Node getCurrNode() {
     return currNode;
   }
 
   public ArrayList<Node> getTravelled() {
     return travelled;
+  }
+  
+  public ArrayList<Integer> getDirections() {
+    return directions;
   }
   
 }

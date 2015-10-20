@@ -41,5 +41,23 @@ public class Node {
   public void setValue(Boolean newValue) {
     this.value =  newValue;
   }
+
+
+  @Override
+  public boolean equals(Object obj) {
+    if (obj instanceof Node ) {
+      Node that = (Node) obj;
+      if (this.pheromone == that.pheromone 
+          && this.value == that.value 
+          && this.xcoord == that.xcoord 
+          && this.ycoord == that.ycoord) {
+        return true;
+      }
+    }
+    return false;
+  }
+  
+  
+  
   
 }

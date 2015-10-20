@@ -34,14 +34,14 @@ public class Map {
   }
   
   
-  public static void removeDeadEnds() {
+  public static void removeDeadEnds(Node deadEnd) {
     boolean progress = true;
     while (progress) {
       progress = false;
       for ( int i = 0; i < width; i++) {
         for (int j = 0; j < height; j++) {
           Node node = mapNodes[i][j];
-          if (node.getValue() == true && getNeighbours(node).size() < 2) {
+          if (node.getValue() == true && !node.equals(deadEnd) && getNeighbours(node).size() < 2) {
             mapNodes[i][j].setValue(false);
             progress = true;
           }
