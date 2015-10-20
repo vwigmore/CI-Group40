@@ -4,12 +4,12 @@ import java.util.List;
 public class ACO {
 
   private static final int ants = 5;
-  private static final int loops = 10;
+  private static final int loops = 100;
   private static final int standard_pheromone = 100;
   private static final double evaporation = 0.1;
 
   private static final Node beginnode = new Node(true,0,0);
-  private static final Node endnode = new Node(true,11,5);
+  private static final Node endnode = new Node(true,24,14);
 
 
   private static List<Ant> antlist = new ArrayList<>();
@@ -19,7 +19,7 @@ public class ACO {
     /**
      * Optimalisation, removing dead ends
      */
-    map.removeDeadEnds(endnode);
+//    map.removeDeadEnds(endnode);
 
     /**
      * After removing all dead ends, start with the loops.
@@ -46,7 +46,7 @@ public class ACO {
        */
       for (int j = 0; j < ants; j++) {
         Ant ant = antlist.get(j);
-        while (!ant.getCurrNode().equals(endnode)) {
+        while (ant.getCurrNode()!= null && !ant.getCurrNode().equals(endnode)) {
           ant.move();
         }
       }
@@ -58,14 +58,16 @@ public class ACO {
         for (Node node : travelled) {
           double temp = standard_pheromone / travelled.size();
           node.setPheromone(node.getPheromone() + temp);
+        }
       }
-      
-     
-
-        
-        
-        
-      }
-    }   
+    }  
+    
+    Ant ant  = new Ant(beginnode);
+    while (ant.getCurrNode()!= null && !ant.getCurrNode().equals(endnode)) {
+      ant.move();
+    }
+    System.out.println("currentnode"+ant.getCurrNode());
+    System.out.println("endnode"+ endnode);
+    System.out.println(ant.getDirections());
   }
 }
