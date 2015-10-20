@@ -38,4 +38,8 @@ public class Node {
     return value;
   }
   
+  public void setValue(Boolean newValue) {
+    this.value =  newValue;
+  }
+  
 }

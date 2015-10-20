@@ -19,11 +19,11 @@ public class ACO {
     /**
      * Optimalisation, removing dead ends
      */
-    
-    
-    
-    
-    
+    Map.removeDeadEnds();
+
+    /**
+     * After removing all dead ends, start with the loops.
+     */
     for (int i = 0; i < loops; i++) {
       /**
        * For every node walked on, deal with the evaporation.

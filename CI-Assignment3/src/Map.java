@@ -14,17 +14,7 @@ public class Map {
     height = h;
     width = w;
     totalset = new ArrayList<>();
-  } 
-  
-  public Node[][] static read(String file) {
-    Node[][] temp = new Node[25][15];
-    
-    
-    
-    
-    return temp;
-  }
-  
+  }  
 
   public static List<Node> getNeighbours(Node node) {
     List<Node> temp = new ArrayList<>();    
@@ -41,6 +31,23 @@ public class Map {
       temp.add(mapNodes[node.getXcoord()][node.getYcoord()+1]);
     }    
     return temp;
+  }
+  
+  
+  public static void removeDeadEnds() {
+    boolean progress = true;
+    while (progress) {
+      progress = false;
+      for ( int i = 0; i < width; i++) {
+        for (int j = 0; j < height; j++) {
+          Node node = mapNodes[i][j];
+          if (node.getValue() == true && getNeighbours(node).size() < 2) {
+            mapNodes[i][j].setValue(false);
+            progress = true;
+          }
+        }
+      }
+    }
   }
   
   public static ArrayList<Node> getTotalset() {
