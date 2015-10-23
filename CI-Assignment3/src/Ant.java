@@ -24,7 +24,7 @@ public class Ant {
 	}
 
 	public Node nextNode() {
-		ArrayList<Node> neighbours = ACO.map.getNeighbours(currNode);
+		ArrayList<Node> neighbours = WalkingAnt.map.getNeighbours(currNode);
 		if (freeWays(neighbours) == 0) {
 			neighbours = reverse();
 		}
@@ -58,11 +58,11 @@ public class Ant {
 	}		
 	
 	public ArrayList<Node> reverse() {
-		while (freeWays(ACO.map.getNeighbours(currNode)) < 1) {
+		while (freeWays(WalkingAnt.map.getNeighbours(currNode)) < 1) {
 			deadends.add(path.pop());
 			currNode = path.lastElement();
 		}
-		return ACO.map.getNeighbours(currNode);
+		return WalkingAnt.map.getNeighbours(currNode);
 	}
 
 	public ArrayList<Node> preferNewPath(ArrayList<Node> neighbours) {

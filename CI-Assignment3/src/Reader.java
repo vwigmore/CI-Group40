@@ -79,7 +79,7 @@ public class Reader {
 		try {
 			PrintWriter out = new PrintWriter(new FileWriter(new File("Resources/mazeresult.txt")));
 			out.println(ant.getPath().size() + ";");
-			out.println(ACO.beginNode.getXcoord() + ", " + ACO.beginNode.getYcoord() + ";");
+			out.println(WalkingAnt.beginNode.getXcoord() + ", " + WalkingAnt.beginNode.getYcoord() + ";");
 			out.println(ant.parseDirections());
 			out.close();
 		} catch (IOException e) {

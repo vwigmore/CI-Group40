@@ -1,25 +1,35 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 
 public class TSP {
-	
-	public static String maze = "Resources/easymaze.txt";
-	public static String products = "Resources/tspproducts.txt";
-	
-	private static final int ants = 5;
-	private static final int loops = 100;
-	private static final int standard_pheromone = 100;
-	private static final double evaporation = 0.1;
-	
-	private static final Node beginnode = new Node(true, 0, 0);
 
-	public static Map map = new Reader().parseMaze(maze);
-	public static ArrayList<Product> productNodes = new Reader().parseProducts(products);
-	public static ArrayList<Ant> antlist = new ArrayList<Ant>();
-	
-	public static void main(String[] args) {
-		
-	}
+  public static String products = "Resources/tspproducts.txt";
+  public static ArrayList<Product> productNodes = new Reader().parseProducts(products);
+
+  public static ArrayList<Path> initpopulation = new ArrayList<>();
+
+  public static void main(String[] args) {
+
+    WalkingAnt.file = "Resources/hardmaze.txt";
+    Reader r = new Reader();
+    WalkingAnt.map = r.parseMaze(WalkingAnt.file);
+    for (int i = 0; i < productNodes.size(); i++) {
+      WalkingAnt.beginNode = productNodes.get(i).getNode();     
+      for (int j = 0; j < productNodes.size(); j++) {
+        if (j > i) {         
+          System.out.println("i:"+i+" j:"+j);
+          WalkingAnt.endNode = productNodes.get(j).getNode();          
+          Ant ant = WalkingAnt.computePath();
+          Path path = new Path(productNodes.get(i),productNodes.get(j),ant.getPath().size());        
+          initpopulation.add(path);
+        }
+      }
+    }
+    
+    
+    System.out.println(initpopulation.size());
+  }
 
 }
