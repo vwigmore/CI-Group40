@@ -17,8 +17,16 @@ public class Chromosome {
 		for (int i = 0; i < products.size() - 1; i++) {
 			total += findPathLength(products.get(i), products.get(i + 1), paths);
 		}
-		fitness =  1 / total;
+		fitness =  100000 / total;
 		return fitness;
+	}
+	
+	public double computePathLenght(ArrayList<Path> paths) {
+		int total = 0;
+		for (int i = 0; i < products.size() - 1; i++) {
+			total += findPathLength(products.get(i), products.get(i + 1), paths);
+		}
+		return total;
 	}
 	
 	public int findPathLength(Product a, Product b, ArrayList<Path> paths) {
