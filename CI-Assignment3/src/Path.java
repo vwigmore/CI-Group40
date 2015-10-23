@@ -10,5 +10,17 @@ public class Path {
     end = e;
     length = l;
   }
+
+  public Product getBegin() {
+    return begin;
+  }
+
+  public Product getEnd() {
+    return end;
+  }
+
+  public int getLength() {
+    return length;
+  }
   
 }
