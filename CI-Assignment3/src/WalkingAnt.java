@@ -9,8 +9,8 @@ public class WalkingAnt {
   public static Node beginNode;                                   //The node where the ants start from
   public static Node endNode;                                     //The node where the ants have to end
 
-  public static int loops = 1000;                                 //Number of times the ants run through the maze
-  public static int ants = 100;                                   //Number of ants per loop
+  public static int loops = 100;                                 //Number of times the ants run through the maze
+  public static int ants = 10;                                   //Number of ants per loop
   public static int pheromone = 100;                              //Pheromone constant
   public static double evaporation = 0.1;                         //Evaporation constant
 

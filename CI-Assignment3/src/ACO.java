@@ -26,5 +26,4 @@ public class ACO {
     new Reader().writeMazePath(WalkingAnt.computePath());
   }
 
-
 }
