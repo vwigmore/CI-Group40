@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 
@@ -37,6 +38,19 @@ public class GA {
 		}
 		return null;
 	}
+	
+	public ArrayList<Chromosome> mutate(ArrayList<Chromosome> oldGen) {
+	  ArrayList<Chromosome> newGen = new ArrayList<>();
+	  for (Chromosome chrome : oldGen) {
+	    ArrayList<Product> temp = chrome.getProducts();
+	    int rand1 = (int) Math.random() * temp.size();
+	    int rand2 = (int) Math.random() * temp.size();
+	    Collections.swap(oldGen, rand1, rand2);
+	    
+	  }
+	  return newGen;
+	}
+	
 	
 	public static void main(String[] args) {
 		
