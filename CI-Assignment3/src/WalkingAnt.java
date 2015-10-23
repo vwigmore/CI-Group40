@@ -19,7 +19,7 @@ public class WalkingAnt {
     //Run the loops
     for (int i = 0; i < loops; i++) {
       ArrayList<Ant> antList = new ArrayList<Ant>();
-      System.out.println("loop: " + (i + 1));
+      //System.out.println("loop: " + (i + 1));
 
       //Let old pheromone slowly disapear with the evaporation constant
       for (Node[] row : map.getNodes()) {

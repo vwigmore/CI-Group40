@@ -5,7 +5,7 @@ import java.util.Random;
 public class GA {
 
 	private int N = 20;
-	private int generations = 500;
+	private int generations = 100;
 	private double Pc = 0.7;
 	private double Pm = 0.01;
 	private ArrayList<Path> paths;

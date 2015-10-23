@@ -90,5 +90,27 @@ public class Reader {
 			e.printStackTrace();
 		}
 	}
+	
+	public void initFile(int pathLength, Node beginNode) {
+		try {
+			PrintWriter out = new PrintWriter(new FileWriter(new File("Resources/tspresult.txt")));
+			out.println(pathLength + ";");
+			out.println(beginNode.getXcoord() + ", " + beginNode.getYcoord() + ";");
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void appendDirections(Ant ant, Product p) {
+		try {
+			PrintWriter out = new PrintWriter(new FileWriter(new File("Resources/tspresult.txt"), true));
+			out.println(ant.parseDirections());
+			out.println("take product #" + p.getNumber() + ";");
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 }
