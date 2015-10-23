@@ -12,10 +12,12 @@ public class TSP {
       WalkingAnt.file = "Resources/hardmaze.txt";
       Reader r = new Reader();
       WalkingAnt.map = r.parseMaze(WalkingAnt.file);
+      int count = 0;
     for (int i = 0; i < productNodes.size(); i++) {
       WalkingAnt.beginNode = productNodes.get(i).getNode();     
       for (int j = 0; j < productNodes.size(); j++) {
-      	System.out.println("Combination: " + (i+1) * (j+1));
+    	count++;
+      	System.out.println("Combination: " + count);
         if (j > i) {         
           WalkingAnt.endNode = productNodes.get(j).getNode();          
           Ant ant = WalkingAnt.computePath();
@@ -35,9 +37,7 @@ public class TSP {
     for (int i = 0; i < route.getProducts().size() - 1; i++) {
     	System.out.println("Link: " + (i + 1));
     	WalkingAnt.beginNode = route.getProducts().get(i).getNode();
-    	System.out.println(WalkingAnt.beginNode.getXcoord() + ", " + WalkingAnt.beginNode.getYcoord());
     	WalkingAnt.endNode = route.getProduct(i + 1).getNode();
-    	System.out.println(WalkingAnt.endNode.getXcoord() + ", " + WalkingAnt.endNode.getYcoord());
     	Ant ant = WalkingAnt.computePath();
     	ants.add(ant);
     	pathLength += ant.getPath().size();

@@ -10,16 +10,16 @@ public class WalkingAnt {
   public static Node endNode;                                     //The node where the ants have to end
 
   public static int loops = 100;                                 //Number of times the ants run through the maze
-  public static int ants = 3;                                   //Number of ants per loop
+  public static int ants = 10;                                   //Number of ants per loop
   public static int pheromone = 100;                              //Pheromone constant
-  public static double evaporation = 0.1;                         //Evaporation constant
+  public static double evaporation = 0.3;                         //Evaporation constant
 
 
   public static Ant computePath() {
     //Run the loops
     for (int i = 0; i < loops; i++) {
       ArrayList<Ant> antList = new ArrayList<Ant>();
-      //System.out.println("loop: " + (i + 1));
+      System.out.println("loop: " + (i + 1));
 
       //Let old pheromone slowly disapear with the evaporation constant
       for (Node[] row : map.getNodes()) {
