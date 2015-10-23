@@ -8,7 +8,7 @@ public class TSP {
   public static String products = "Resources/tspproducts.txt";
   public static ArrayList<Product> productNodes = new Reader().parseProducts(products);
 
-  public static ArrayList<Path> initpopulation = new ArrayList<>();
+  public static ArrayList<Path> possiblepaths = new ArrayList<>();
 
   public static void main(String[] args) {
 
@@ -22,7 +22,7 @@ public class TSP {
           WalkingAnt.endNode = productNodes.get(j).getNode();          
           Ant ant = WalkingAnt.computePath();
           Path path = new Path(productNodes.get(i),productNodes.get(j),ant.getPath().size());        
-          initpopulation.add(path);
+          possiblepaths.add(path);
         }
       }
     }
