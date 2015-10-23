@@ -14,6 +14,7 @@ public class Map {
     width = w;
   }  
 
+  //Returns all nodes that are possible to travel to from a certain node that is given as a parameter
   public ArrayList<Node> getNeighbours(Node node) {
     int x = node.getXcoord();
     int y = node.getYcoord();

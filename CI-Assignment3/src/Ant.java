@@ -7,8 +7,8 @@ public class Ant {
 
 	Node currNode;
 
-	Stack<Node> path;
-	ArrayList<Node> deadends;
+	Stack<Node> path;			//The path the ant has travelled so far
+	ArrayList<Node> deadends;	//All path nodes the ant shouldn't travel
 
 	public Ant(Node beginNode) {
 		this.currNode = beginNode;
@@ -17,18 +17,26 @@ public class Ant {
 		deadends = new ArrayList<Node>();
 	}
 
+	//Travel to a new node
 	public void move() {
 		Node next = nextNode();
 		currNode = next;
 		path.add(currNode);	
 	}
 
+	//Compute which node is the best node to move to
 	public Node nextNode() {
 		ArrayList<Node> neighbours = ACO.map.getNeighbours(currNode);
+		
+		//If there are no untravelled paths to go to then reverse
 		if (freeWays(neighbours) == 0) {
 			neighbours = reverse();
 		}
+		
+		//Remove all paths that have already been travelled
 		neighbours = preferNewPath(neighbours);
+		
+		//Choose a new node dependend on probabilities which depend on the amount of pheromone
 		double number = Math.random();
 		double total = 0;
 		for (Node n : neighbours) {
@@ -47,6 +55,7 @@ public class Ant {
 		return neighbours.get(0);
 	}
 	
+	//Return the amount of next nodes that have not been travelled yet
 	public int freeWays(ArrayList<Node> neighbours) {
 		int count = 0;
 		for (Node n : neighbours) {
@@ -57,6 +66,7 @@ public class Ant {
 		return count;
 	}		
 	
+	//Move back nodes until a junction has been found where another untravelled path can be chosen
 	public ArrayList<Node> reverse() {
 		while (freeWays(ACO.map.getNeighbours(currNode)) < 1) {
 			deadends.add(path.pop());
@@ -65,6 +75,7 @@ public class Ant {
 		return ACO.map.getNeighbours(currNode);
 	}
 
+	//Prefer new nodes that have not been travelled yet be removing all nodes that have been travelled
 	public ArrayList<Node> preferNewPath(ArrayList<Node> neighbours) {
 		ArrayList<Node> result = new ArrayList<Node>();
 		for (Node n : neighbours) {
