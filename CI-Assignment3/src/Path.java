@@ -11,7 +11,4 @@ public class Path {
     length = l;
   }
   
-  
-  
-  
 }
