@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 public class Reader {
 
+	//Parse a maze textfile to an actual mazemap object
 	public Map parseMaze(String file) {
 		try {
 			Scanner scanner = new Scanner(new File(file));
@@ -33,6 +34,7 @@ public class Reader {
 		return null;
 	}
 	
+	//Parse a product textfile to an actual list of product objects
 	public ArrayList<Product> parseProducts(String file) {
 		try {
 			ArrayList<Product> res = new ArrayList<Product>();
@@ -57,6 +59,7 @@ public class Reader {
 		return null;
 	}
 	
+	//Parse a coordinates textfile to an actual list of 1 begin node and 1 end node
 	public ArrayList<Node> parseCoordinates(String file) {
 		try {
 			Scanner sc = new Scanner(new File(file));
@@ -75,6 +78,7 @@ public class Reader {
 		return null;
 	}
 	
+	//Write the path of an ant into a resultfile
 	public void writeMazePath(Ant ant) {
 		try {
 			PrintWriter out = new PrintWriter(new FileWriter(new File("Resources/mazeresult.txt")));

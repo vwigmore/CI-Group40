@@ -22,7 +22,9 @@ public class ACO {
     WalkingAnt.beginNode = r.parseCoordinates(WalkingAnt.coordinates).get(0);
     WalkingAnt.endNode = r.parseCoordinates(WalkingAnt.coordinates).get(1);
 
+    //Write the shortest path to the result file
     new Reader().writeMazePath(WalkingAnt.computePath());
   }
+
 
 }
