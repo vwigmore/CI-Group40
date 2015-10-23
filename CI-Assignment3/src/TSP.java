@@ -19,7 +19,6 @@ public class TSP {
       WalkingAnt.beginNode = productNodes.get(i).getNode();     
       for (int j = 0; j < productNodes.size(); j++) {
         if (j > i) {         
-          System.out.println("i:"+i+" j:"+j);
           WalkingAnt.endNode = productNodes.get(j).getNode();          
           Ant ant = WalkingAnt.computePath();
           Path path = new Path(productNodes.get(i),productNodes.get(j),ant.getPath().size());        
@@ -27,9 +26,8 @@ public class TSP {
         }
       }
     }
+   
     
-    
-    System.out.println(initpopulation.size());
   }
 
 }

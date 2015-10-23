@@ -9,8 +9,8 @@ public class WalkingAnt {
   public static Node beginNode;
   public static Node endNode;
 
-  public static int loops = 7;
-  public static int ants = 5;
+  public static int loops = 1;
+  public static int ants = 1;
   public static int pheromone = 100;
   public static double evaporation = 0.1;
 
