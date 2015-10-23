@@ -1,108 +1,112 @@
+
+
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Stack;
 
 public class Ant {
 
-  private Node currNode;
-  private Node prevNode;
+	Node currNode;
 
-  private ArrayList<Node> travelled;
-  private ArrayList<Integer> directions;
+	Stack<Node> path;
+	ArrayList<Node> deadends;
 
-  private Map map;
+	public Ant(Node beginNode) {
+		this.currNode = beginNode;
+		path = new Stack<Node>();
+		path.add(currNode);
+		deadends = new ArrayList<Node>();
+	}
 
-  public Ant(Node node) {
-    currNode = node;
-    prevNode = null;
-    travelled = new ArrayList<>();
-    directions = new ArrayList<>();
-    map = ACO.map;
-  }
+	public void move() {
+		Node next = nextNode();
+		currNode = next;
+		path.add(currNode);	
+	}
 
-  public void move() {
-    Node next = getNextNode();
-    travelled.add(currNode);
+	public Node nextNode() {
+		ArrayList<Node> neighbours = ACO.map.getNeighbours(currNode);
+		if (freeWays(neighbours) == 0) {
+			neighbours = reverse();
+		}
+		neighbours = preferNewPath(neighbours);
+		double number = Math.random();
+		double total = 0;
+		for (Node n : neighbours) {
+			total += n.getPheromone();
+		}
+		double[] chances = new double[neighbours.size()];
+		for (int i = 0; i < neighbours.size(); i++) {
+			chances[i] = neighbours.get(i).getPheromone() / total;
+			if (i > 0) {
+				chances[i] += chances[i-1];
+			}
+			if (number < chances[i]) {
+				return neighbours.get(i);
+			}
+		}
+		return neighbours.get(0);
+	}
+	
+	public int freeWays(ArrayList<Node> neighbours) {
+		int count = 0;
+		for (Node n : neighbours) {
+			if (!path.contains(n) && !deadends.contains(n)) {
+				count++;
+			}
+		}
+		return count;
+	}		
+	
+	public ArrayList<Node> reverse() {
+		while (freeWays(ACO.map.getNeighbours(currNode)) < 1) {
+			deadends.add(path.pop());
+			currNode = path.lastElement();
+		}
+		return ACO.map.getNeighbours(currNode);
+	}
 
-    if (!map.getTotalset().contains(currNode)) {
-      map.getTotalset().add(currNode);
-    }
-    prevNode = currNode;
-    currNode = next;
-  }
+	public ArrayList<Node> preferNewPath(ArrayList<Node> neighbours) {
+		ArrayList<Node> result = new ArrayList<Node>();
+		for (Node n : neighbours) {
+			if (!path.contains(n) && !deadends.contains(n)) {
+				result.add(n);
+			}
+		}
+		return result;
+	}
 
-  private Node getNextNode() {
-    List<Node> nodes = new ArrayList<>(map.getNeighbours(currNode));
-    if (prevNode != null && nodes.size() > 1) {
-      nodes.remove(prevNode);
-    }  
-    double total = 0;
-    for (Node node : nodes) {
-      total += node.getPheromone();
-    }
-    Node next = null;
-    double random = Math.random();
-    for (Node node: nodes) {     
-      double pher = node.getPheromone();
-      if ((pher / total) > random) {
-        next = node;
-        nextDir(next);
-        break;
-      } else {
-        random -= (pher / total);
-      }
-    }
-    return next;
-  }
+	public Node getCurrNode() {
+		return currNode;
+	}
 
-  private void nextDir(Node next) {
-    Node current = currNode;   
-    if (current.getXcoord() > next.getXcoord()) {           // moving left
-      directions.add(new Integer(2));
-    } else if (current.getXcoord() < next.getXcoord()) {    // moving right
-      directions.add(new Integer(0));
-    } else if (current.getYcoord() > next.getYcoord()) {    // moving up
-      directions.add(new Integer(1));
-    } else if (current.getYcoord() < next.getYcoord()) {    // moving down
-      directions.add(new Integer(3));
-    }
-  }
+	public void setCurrNode(Node currNode) {
+		this.currNode = currNode;
+	}
 
-  public Node getCurrNode() {
-    return currNode;
-  }
+	public Stack<Node> getPath() {
+		return path;
+	}
 
-  public ArrayList<Node> getTravelled() {
-    return travelled;
-  }
+	public void setPath(Stack<Node> path) {
+		this.path = path;
+	}
+	
+	public String parseDirections() {
+		String result = "";
+		for (int i = 0; i < path.size() - 1; i++) {
+			Node n1 = path.get(i);
+			Node n2 = path.get(i+1);
+			if (n1.getXcoord() < n2.getXcoord()) {
+				result += 0 + ";";
+			} else if (n1.getXcoord() > n2.getXcoord()) {
+				result += 2 + ";";
+			} else if (n1.getYcoord() < n2.getYcoord()) {
+				result += 3 + ";";
+			} else if (n1.getYcoord() > n2.getYcoord()) {
+				result += 1 + ";";
+			}
+		}
+		return result;
+	}
 
-  public ArrayList<Integer> getDirections() {
-    return directions;
-  }
-
-  public String pathToString() {
-    String res = "START: ";
-    for (int i : directions) {
-      if (i == 0) {
-        res += "East, ";
-      } else if (i == 1) {
-        res += "North, ";
-      } else if (i == 2) {
-        res += "West , ";
-      } else if (i == 3) {
-        res += "South, ";
-      }
-    }
-    res = res.substring(0, res.length() - 2);
-    res += " :END";
-    return res;
-  }
-
-  public String parseDirections() {
-    String res = "";
-    for (int i : directions) {
-      res += i + ";";
-    }
-    res = res.substring(0, res.length()-1);
-    return res;
-  }
 }

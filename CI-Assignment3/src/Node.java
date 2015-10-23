@@ -1,4 +1,6 @@
 
+
+
 public class Node {
 
   private boolean value;
@@ -47,8 +49,7 @@ public class Node {
   public boolean equals(Object obj) {
     if (obj instanceof Node ) {
       Node that = (Node) obj;
-      if (this.pheromone == that.pheromone 
-          && this.value == that.value 
+      if (this.value == that.value 
           && this.xcoord == that.xcoord 
           && this.ycoord == that.ycoord) {
         return true;
@@ -57,7 +58,9 @@ public class Node {
     return false;
   }
   
-  
+  public String toString() {
+	  return "X: " + xcoord + ", Y: " + ycoord + ", Value: " + value + ", Pheromone: " + pheromone; 
+  }
   
   
 }

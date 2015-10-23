@@ -1,60 +1,82 @@
+
+
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Scanner;
+import java.util.Stack;
 
 public class ACO {
+	
+	public static String file;
+	public static String coordinates;
+	public static Map map;
+	public static Node beginNode;
+	public static Node endNode;
+	
+	public static int loops = 100;
+	public static int ants = 10;
+	public static int pheromone = 100;
+	public static double evaporation = 0.1;
+	
+	public static ArrayList<Ant> antList = new ArrayList<Ant>();
 
-  public static final int ants = 150;
-  public static final int loops = 1000;
-  public static final int standard_pheromone = 100;
-  public static final double evaporation = 0.1;
+	public static void main(String[] args) {
+		
+		System.out.println("Which maze do you want to run?");
+		System.out.println("0 for easy, 1 for medium, 2 for hard, 3 for insane.");
+		Scanner sc = new Scanner(System.in);
+		int choice = sc.nextInt();
+		sc.close();
+		
+		switch(choice) {
+		case 0: file = "Resources/easymaze.txt"; coordinates = "Resources/easycoordinates.txt"; break;
+		case 1: file = "Resources/mediummaze.txt"; coordinates = "Resources/mediumcoordinates.txt"; break;
+		case 2: file = "Resources/hardmaze.txt"; coordinates = "Resources/hardcoordinates.txt"; break;
+		case 3: file = "Resources/insanemaze.txt"; coordinates = "Resources/insanecoordinates.txt"; break;
+		default: throw new IllegalArgumentException();
+		}
+		Reader r = new Reader();
+		map = r.parseMaze(file);
+		beginNode = r.parseCoordinates(coordinates).get(0);
+		endNode = r.parseCoordinates(coordinates).get(1);
+				 
+		for (int i = 0; i < loops; i++) {
+		
+			System.out.println("loop: " + (i + 1));
+			
+			for (Node[] row : map.getNodes()) {
+				for (Node node : row) {
+					if (node.getValue()) {
+						node.setPheromone(node.getPheromone() * (1 - evaporation));
+					}
+				}
+		    }
+			
+			for (int j = 0; j < ants; j++) {
+				antList.add(new Ant(beginNode));
+			}
+			
+			
+			for (int j = 0; j < ants; j++) {
+				Ant ant = antList.get(j);
+				while (!ant.getCurrNode().equals(endNode)) {
+					ant.move();
+				}
+				new Reader().writeMazePath(ant);
+			}
+			for (int j = 0; j < ants; j++) {
+				Stack<Node> path = antList.get(j).getPath();
+				for (Node n : path) {
+					n.setPheromone(n.getPheromone() + pheromone / path.size());
+				}
+			}
+			antList.clear();
+		}
+		
+		Ant ant = new Ant(beginNode);
+		while (!ant.getCurrNode().equals(endNode)) {
+			ant.move();
+		}
+		new Reader().writeMazePath(ant);
+	}
 
-  public static final Node beginnode = new Node(true, 0, 0);
-  public static final Node endnode = new Node(true, 21, 25);
-
-  public static Map map = new Reader().parseMaze("Resources/mediummaze.txt");
-
-  public static void main(String[] args) {
-    for (int i = 0; i < loops; i++) {
-      List<Ant> antlist = new ArrayList<>();
-
-      /**
-       * For every node walked on, deal with the evaporation.
-       */
-      List<Node> total = map.getTotalset();
-      if (total != null) {
-        for (Node node : total) {
-          node.setPheromone(node.getPheromone() * (1 - evaporation));
-        }
-      }
-
-      /**
-       * Each ant should move until it has reached the end.
-       */
-      for (int j = 0; j < ants; j++) {
-        Ant ant = new Ant(beginnode);
-        antlist.add(ant);
-        while (!ant.getCurrNode().equals(endnode)) {
-          ant.move();
-        }
-      }
-      /**
-       * Update the pheromones on the travelled path for every ant.
-       */
-      for (Ant ant : antlist) {
-        List<Node> travelled = ant.getTravelled();
-        for (Node node : travelled) {
-          double temp = standard_pheromone / travelled.size();
-          node.setPheromone(node.getPheromone() + temp);
-        }
-      }
-    }
-
-    Ant ant = new Ant(beginnode);
-
-    while (!ant.getCurrNode().equals(endnode)) {
-      ant.move();
-    }
-
-    new Reader().writeMazePath(ant);
-  }
 }

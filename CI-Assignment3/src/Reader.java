@@ -1,3 +1,4 @@
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -56,11 +57,29 @@ public class Reader {
 		return null;
 	}
 	
+	public ArrayList<Node> parseCoordinates(String file) {
+		try {
+			Scanner sc = new Scanner(new File(file));
+			ArrayList<Node> result = new ArrayList<Node>();
+			String a = sc.nextLine();
+			String[] split = a.split(", ");
+			result.add(new Node(true, Integer.parseInt(split[0]), Integer.parseInt(split[1].substring(0, split[1].length()-1))));
+			a = sc.nextLine();
+			split = a.split(", ");
+			result.add(new Node(true, Integer.parseInt(split[0]), Integer.parseInt(split[1].substring(0, split[1].length()-1))));
+			sc.close();
+			return result;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	public void writeMazePath(Ant ant) {
 		try {
 			PrintWriter out = new PrintWriter(new FileWriter(new File("Resources/mazeresult.txt")));
-			out.println(ant.getDirections().size() + ";");
-			out.println(ACO.beginnode.getXcoord() + ", " + ACO.beginnode.getYcoord() + ";");
+			out.println(ant.getPath().size() + ";");
+			out.println(ACO.beginNode.getXcoord() + ", " + ACO.beginNode.getYcoord() + ";");
 			out.println(ant.parseDirections());
 			out.close();
 		} catch (IOException e) {

@@ -1,52 +1,49 @@
+
+
 import java.util.ArrayList;
-import java.util.List;
 
 public class Map {
 
   private Node[][] mapNodes;
   private int height;
   private int width;
-    
-  private ArrayList<Node> totalset;
-  
+      
   public Map(Node[][] nodes, int h, int w) {
     mapNodes = nodes;
     height = h;
     width = w;
-    totalset = new ArrayList<>();
   }  
 
-  public List<Node> getNeighbours(Node node) {
-    List<Node> temp = new ArrayList<>();    
-    if (node.getXcoord() > 0) {
-      Node neigh = mapNodes[node.getXcoord()-1][node.getYcoord()];
-      if (neigh.getValue()) {
-        temp.add(neigh);
-      }
+  public ArrayList<Node> getNeighbours(Node node) {
+    int x = node.getXcoord();
+    int y = node.getYcoord();
+    ArrayList<Node> result = new ArrayList<Node>();
+    Node n = null;
+    if (x > 0) {
+    	n = mapNodes[x-1][y];
+    	if (n.getValue()) {
+    		result.add(n);
+    	}
     }
-    if (node.getXcoord() < width - 1) {
-      Node neigh = mapNodes[node.getXcoord()+1][node.getYcoord()];
-      if (neigh.getValue()) {
-        temp.add(neigh);
-      }
+    if (x < width-1) {
+    	n = mapNodes[x+1][y];
+    	if (n.getValue()) {
+    		result.add(n);
+    	}
     }
-    if (node.getYcoord() > 0) {
-      Node neigh = mapNodes[node.getXcoord()][node.getYcoord()-1];
-      if (neigh.getValue()) {
-        temp.add(neigh);
-      }
+    if (y > 0) {
+    	n = mapNodes[x][y-1];
+    	if (n.getValue()) {
+    		result.add(n);
+    	}
     }
-    if (node.getYcoord() < height - 1) {
-      Node neigh = mapNodes[node.getXcoord()][node.getYcoord()+1];
-      if (neigh.getValue()) {
-        temp.add(neigh);
-      }
-    }    
-    return temp;
-  }
-  
-  public ArrayList<Node> getTotalset() {
-    return totalset;
+    if (y < height-1) {
+    	n = mapNodes[x][y+1];
+    	if (n.getValue()) {
+    		result.add(n);
+    	}
+    }
+    return result;
   }
   
   public Node[][] getNodes() {
