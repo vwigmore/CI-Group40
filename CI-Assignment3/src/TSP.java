@@ -1,13 +1,10 @@
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
 
 public class TSP {
 
   public static String products = "Resources/tspproducts.txt";
   public static ArrayList<Product> productNodes = new Reader().parseProducts(products);
-
   public static ArrayList<Path> possiblepaths = new ArrayList<>();
 
   public static void main(String[] args) {
@@ -26,8 +23,8 @@ public class TSP {
         }
       }
     }
-   
     
+    Chromosome route = new GA().shortestPath(possiblepaths, productNodes);  
   }
 
 }

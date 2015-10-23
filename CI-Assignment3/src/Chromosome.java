@@ -31,6 +31,18 @@ public class Chromosome {
 		}
 		return 0;
 	}
+	
+	public int size() {
+		return products.size();
+	}
+	
+	public Product getProduct(int index) {
+		return products.get(index);
+	}
+	
+	public boolean containsProduct(Product p) {
+		return products.contains(p);
+	}
 
 	public ArrayList<Product> getProducts() {
 		return products;
