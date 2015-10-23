@@ -4,12 +4,14 @@ public class ACO {
 
   public static void main(String[] args) {
 
+    // Ask the user which type of maze should be loaded.
     System.out.println("Which maze do you want to run?");
     System.out.println("0 for easy, 1 for medium, 2 for hard, 3 for insane.");
     Scanner sc = new Scanner(System.in);
     int choice = sc.nextInt();
     sc.close();
 
+    // The type of maze is processed together with the according coordinates.
     switch(choice) {
       case 0: WalkingAnt.file = "Resources/easymaze.txt"; WalkingAnt.coordinates = "Resources/easycoordinates.txt"; break;
       case 1: WalkingAnt.file = "Resources/mediummaze.txt"; WalkingAnt.coordinates = "Resources/mediumcoordinates.txt"; break;

@@ -12,6 +12,7 @@ public class Chromosome {
 		this.products = products;
 	}
 	
+	// Computes the fitness by dividing by the total pathlengths.
 	public double computeFitness(ArrayList<Path> paths) {
 		int total = 0;
 		for (int i = 0; i < products.size() - 1; i++) {
@@ -21,6 +22,7 @@ public class Chromosome {
 		return fitness;
 	}
 	
+	// Computes the total pathlength.
 	public double computePathLenght(ArrayList<Path> paths) {
 		int total = 0;
 		for (int i = 0; i < products.size() - 1; i++) {
@@ -29,6 +31,7 @@ public class Chromosome {
 		return total;
 	}
 	
+	// Finds the pathlength between two products.
 	public int findPathLength(Product a, Product b, ArrayList<Path> paths) {
 		for (Path p : paths) {
 			if (p.getBegin().equals(a) || p.getEnd().equals(a)) {

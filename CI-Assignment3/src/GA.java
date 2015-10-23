@@ -10,6 +10,8 @@ public class GA {
 	private double Pm = 0.01;
 	private ArrayList<Path> paths;
 
+	// Searches for the shortest path by evolving a random population
+	// of N chromosomes.
 	public Chromosome shortestPath(ArrayList<Path> pathsIn,
 			ArrayList<Product> products) {
 		this.paths = pathsIn;
@@ -27,6 +29,7 @@ public class GA {
 		return findFittest(currentPopulation);
 	}
 
+	// Evolution of a Chromosome with crossOver and mutation.
 	public ArrayList<Chromosome> evolve(ArrayList<Chromosome> population) {
 		ArrayList<Chromosome> result = new ArrayList<Chromosome>();
 		while (!population.isEmpty()) {
@@ -68,6 +71,7 @@ public class GA {
 		return result;
 	}
 
+	// Mutation by swapping two random elements in a chromosome.
 	public Chromosome mutate(Chromosome oldGen) {
 		ArrayList<Product> temp = oldGen.getProducts();
 		int rand1 = (int) Math.random() * temp.size();
@@ -76,6 +80,7 @@ public class GA {
 		return new Chromosome(temp);
 	}
 
+	// The intial chromosomes should by a random order of products.
 	public Chromosome randomOrder(ArrayList<Product> products) {
 		ArrayList<Product> result = new ArrayList<Product>();
 		ArrayList<Product> copy = new ArrayList<Product>(products);
@@ -88,6 +93,7 @@ public class GA {
 		return new Chromosome(result);
 	}
 
+	// Computes the total fitness of the population.
 	public double totalFitness(ArrayList<Chromosome> population) {
 		double result = 0;
 		for (Chromosome c : population) {
@@ -96,6 +102,8 @@ public class GA {
 		return result;
 	}
 
+	
+	// Sets the cumulative ratio for all chromosomes in the population.
 	public void setCumulativeRatios(ArrayList<Chromosome> population) {
 		for (int i = 0; i < population.size(); i++) {
 			Chromosome c = population.get(i);
@@ -114,6 +122,7 @@ public class GA {
 		}
 	}
 
+	// Crossover evolution for TSP.
 	public Chromosome crossOver(Chromosome a, Chromosome b) {
 		ArrayList<Product> child = new ArrayList<Product>();
 		for (int i = 0; i < a.size(); i++) {
@@ -151,6 +160,7 @@ public class GA {
 		return new Chromosome(child);
 	}
 	
+	// Returns the chromosome with the highest fitness.
 	public Chromosome findFittest(ArrayList<Chromosome> population) {
 		Chromosome fittest = population.get(0);
 		for (int i = 1; i < N; i++) {
